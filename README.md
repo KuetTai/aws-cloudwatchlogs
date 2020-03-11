@@ -5,28 +5,33 @@ Herewith the final architecture of the lab:
 
 ## Prologue: Understanding about the architecture :smile:
 This lab is going to covers the following:
-- [AWS CloudWatch Logs Agent](##Step-1)
+- [Chapter 1: AWS CloudWatch Logs Agent](#Chapter-1)
   - Install CloudWatch Logs Agent on EC2 Amazon Linux 2
   - Look into CloudWatch Logs Agent config files - (a) awslogs.conf, (b) awscli.conf
   - Publish 2 types of log files - (a) delimiter, (b) json
-- Creating CloudWatch Metrics & Alarms
+- [Chapter 2: Creating CloudWatch Metrics & Alarms](#Chapter-2)
   - Create Filter/Metrics for both delimiter & JSON
   - Configure SNS to send notification as soon as the Alarms triggered
-- Using CloudWatch Logs Insight
+- [Chapter 3: Using CloudWatch Logs Insight](#Chapter-3)
   - Type of query
-- Publish CloudWatch Metrics to AWS
+- [Chapter 4: Publish CloudWatch Metrics to AWS](#Chapter-4)
   - Prebuilt CloudWatch Metrics - Memory, Disk Usage etc
   - Custom Built CloudWatch Metrics
-- Best Practices (Notes)
+- [Chapter 5: Best Practices (Notes)](#Chapter-5)
 
 
-## Step 1
-Here
-Is
-Step
-1
-Hello
-World
-Come
-On
-People
+## Chapter 1
+Installation
+
+
+## Chapter 2
+Alarms
+
+## Chapter 3
+Quert Insight
+
+## Chapter 4
+Custom Metrics
+
+## Chapter 5
+Best Practices :D
