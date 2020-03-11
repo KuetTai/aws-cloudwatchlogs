@@ -4,6 +4,9 @@ Herewith the final architecture of the lab:
 ![Image of CloudWatchLogs Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2018/04/25/SPO_Data-ingestion_final.png)
 
 ## Prologue: Understanding about the architecture :smile:
+
+
+## Agenda
 This lab is going to covers the following:
 - [Chapter 1: AWS CloudWatch Logs Agent](#Chapter-1)
   - Install CloudWatch Logs Agent on EC2 Amazon Linux 2
@@ -18,6 +21,7 @@ This lab is going to covers the following:
   - Prebuilt CloudWatch Metrics - Memory, Disk Usage etc
   - Custom Built CloudWatch Metrics
 - [Chapter 5: Best Practices (Notes)](#Chapter-5)
+- [References](#References)
 
 
 ## Chapter 1
@@ -35,3 +39,5 @@ Custom Metrics
 
 ## Chapter 5
 Best Practices :D
+
+## References
