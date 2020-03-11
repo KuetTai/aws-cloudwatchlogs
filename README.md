@@ -5,7 +5,7 @@ Herewith the final architecture of the lab:
 
 ## Prologue: Understanding about the architecture :smile:
 This lab is going to covers the following:
-- AWS CloudWatch Logs Agent
+- [AWS CloudWatch Logs Agent](##Step-1)
   - Install CloudWatch Logs Agent on EC2 Amazon Linux 2
   - Look into CloudWatch Logs Agent config files - (a) awslogs.conf, (b) awscli.conf
   - Publish 2 types of log files - (a) delimiter, (b) json
@@ -20,4 +20,13 @@ This lab is going to covers the following:
 - Best Practices (Notes)
 
 
-## Step 1: AWS CloudWatch Logs Agent
+## Step 1
+Here
+Is
+Step
+1
+Hello
+World
+Come
+On
+People
