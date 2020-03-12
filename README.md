@@ -44,12 +44,13 @@ By completing this chapter, we will achieve the following:
       -  Under __Select type of trusted entity__, select `AWS Service`
       -  Under __Choose a use case__, select `EC2`
       -  Leave everything else as default, scroll to the bottom, click `Next: Permissions` button
-  1. In the __Filter policies__ text box, type this `CloudWatchAgentServerPolicy`, tick on the checkbox appears
-  1. Scroll to the bottom, click `Next: Tags` button
-  1. Click on `Next: Review` button
+1. In the __Filter policies__ text box, type this `CloudWatchAgentServerPolicy`, tick on the checkbox appears
+      -  Scroll to the bottom, click `Next: Tags` button
+      -  Click on `Next: Review` button
+1. In the next screen:
       -  __Role name*__: `MyEC2CloudWatchAgentRole`
       -  Scroll to the bottom, click `Create role` button
-  1. You should see the following success role creation message:
+1. You should see the following success role creation message:
   - *The role __MyEC2CloudWatchAgentRole__ has been created*
 
 ### Create EC2
@@ -57,7 +58,7 @@ By completing this chapter, we will achieve the following:
 1. On the left hand side, look for `Instances` and click on it
 1. After that, click `Launch Instance` button
 1. At this setup wizard, follows through the steps below:
-      - Click on `Select` button next to `__Amazon Linux 2 AMI (HVM)`
+      - Click on `Select` button next to __Amazon Linux 2 AMI (HVM)__
       - Click on `Next: Configure Instance Details`
 1. Step 3: Configure Instance Details
       - Auto-assign Public IP: `Use subnet setting (Enable)`
