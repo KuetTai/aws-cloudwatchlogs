@@ -109,6 +109,11 @@ sudo yum update -y
 
 ## Install AWS Cloudwatch Logs Agent
 sudo yum install awslogs -y
+
+## Important Folders/Files
+# - /etc/awslogs/awslogs.conf <-- Main configure files!
+# - /etc/awslogs/awscli.conf <-- cli config, usually need to change it 1 time only
+# - /var/log/awslogs.log  <-- storing awslogs agent
 ```
 
 Prepare software: required for this lab to perform simulation:
@@ -126,6 +131,7 @@ sudo amazon-linux-extras install -y php7.2
 ##  - in JSON format
 sudo yum install httpd -y
 ```
+
 
 ## Chapter 2
 By completing this chapter, we will achieve the following:
