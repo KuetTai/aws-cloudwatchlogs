@@ -94,10 +94,38 @@ By completing this chapter, we will achieve the following:
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 1 Architecture Diagram](https)
+### SSH into your newly created EC2
 1. You should be viewing __EC2__ listing page
 1. Click on the checkbox appears beside `myWebApp`
 1. Click on `Connect` button on top of EC2 listing
 1. Follow the steps to SSH into `myWebApp` __EC2__
+
+### Setting up your environments
+Prepare software: required for CloudWatch Logs agent to work:
+```bash
+# Run the following commands as ec2-user
+## Ensure all softwares are up to date
+sudo yum update -y
+
+## Install AWS Cloudwatch Logs Agent
+sudo yum install awslogs -y
+```
+
+Prepare software: required for this lab to perform simulation:
+```bash
+## Install PHP
+## This is to simulate
+##  - page not found error
+##  - page redirection
+##  - healthy page
+sudo amazon-linux-extras install -y php7.2
+
+## Install Apache Web Server
+## This is important for log simulation
+##  - in delimiter format
+##  - in JSON format
+sudo yum install httpd -y
+```
 
 ## Chapter 2
 By completing this chapter, we will achieve the following:
