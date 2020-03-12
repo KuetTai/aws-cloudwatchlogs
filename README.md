@@ -57,34 +57,34 @@ By completing this chapter, we will achieve the following:
 1. On the left hand side, look for `Instances` and click on it
 1. After that, click `Launch Instance` button
 1. At this setup wizard, follows through the steps below:
-   1. Click on `Select` button next to `__Amazon Linux 2 AMI (HVM)`
-   1. Click on `Next: Configure Instance Details`
-  1. Step 3: Configure Instance Details
+      - Click on `Select` button next to `__Amazon Linux 2 AMI (HVM)`
+      - Click on `Next: Configure Instance Details`
+1. Step 3: Configure Instance Details
       - Auto-assign Public IP: `Use subnet setting (Enable)`
       - IAM role: `MyEC2CloudWatchAgentRole`
       - Leave everything as default
       - Scroll to the bottom, click `Next: Add Storage` button
-  1. Click `Next: Add Tags` button
-  1. Step 5: Add Tags
-    1. Click `Add Tag` button
-    1. Key: `Name`
-    1. Value: `myWebApp`
-    1. Click `Next: Configure Security Group`
-  1. Step 6: Configure Security Group
-    1. Security group name: `myWebAppSG`
-    1. Click `Add Rule` button, select __Type:__ `HTTP`
-    1. Click `Review and Launch` button
-  1. Step 7: Review Instance Launch
-    1. Take a final look on the configuration
-    1. Click `Launch` button
-  1. At the popup dialog, you will see two (2) dropdown input.
-    1. `Create a new key pair`
-    1. __Key pair name:__ `lab-cwl-agent`
-    1. Click `Download Key Pair`
-    1. Check on __I acknowledge that...__
-    1. Click `Launch Instances` button
-  1. Wait until your newly create instance has `running` __Instance State__.
-  1. Congrats! You have completed the __Prologue__
+1. Click `Next: Add Tags` button
+1. Step 5: Add Tags
+      -  Click `Add Tag` button
+      -  Key: `Name`
+      -  Value: `myWebApp`
+      -  Click `Next: Configure Security Group`
+1. Step 6: Configure Security Group
+      -  Security group name: `myWebAppSG`
+      -  Click `Add Rule` button, select __Type:__ `HTTP`
+      -  Click `Review and Launch` button
+1. Step 7: Review Instance Launch
+      -  Take a final look on the configuration
+      -  Click `Launch` button
+1. At the popup dialog, you will see two (2) dropdown input.
+      -  `Create a new key pair`
+      -  __Key pair name:__ `lab-cwl-agent`
+      -  Click `Download Key Pair`
+      -  Check on __I acknowledge that...__
+      -  Click `Launch Instances` button
+1. Wait until your newly create instance has `running` __Instance State__.
+1. Congrats! You have completed the __Prologue__
 
 ## Chapter 1
 ! make sure you completed the setup in [Prologue](#Prologue) before proceeding.
