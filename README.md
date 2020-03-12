@@ -50,9 +50,9 @@ By completing this chapter, we will achieve the following:
 1. Next, navigate to `EC2` service
 1. On the left hand side, look for `Instances` and click on it
 1. After that, click `Launch Instance` button
-..1. At this setup wizard, follows through the steps below:
-....1. Click on `Select` button next to `__Amazon Linux 2 AMI (HVM)`
-....1. Click on `Next: Configure Instance Details`
+..1. At this setup wizard, follows through the steps below:..
+...1. Click on `Select` button next to `__Amazon Linux 2 AMI (HVM)`..
+...1. Click on `Next: Configure Instance Details`..
   1. Step 3: Configure Instance Details
     1. Auto-assign Public IP: `Use subnet setting (Enable)`
     1. IAM role: `MyEC2CloudWatchAgentRole`
