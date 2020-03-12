@@ -8,6 +8,7 @@ Herewith the final architecture of the lab:
 
 ## Agenda
 This lab is going to covers the following:
+- [Prologue: Preparing your environment](#Prologue)
 - [Chapter 1: AWS CloudWatch Logs Agent](#Chapter-1)
   - Install CloudWatch Logs Agent on EC2 Amazon Linux 2
   - Look into CloudWatch Logs Agent config files - (a) awslogs.conf, (b) awscli.conf
@@ -21,13 +22,18 @@ This lab is going to covers the following:
   - Prebuilt CloudWatch Metrics - Memory, Disk Usage etc
   - Custom Built CloudWatch Metrics
 - [Chapter 5: Best Practices (Notes)](#Chapter-5)
-- [References](#References)
+- [Appendix and References](#References-and-References)
 
 
-## Chapter 1
+## Prologue
 ### Create IAM roles
+By completing this chapter, we will achieve the following:
+
+![Image of Prologue Diagram](https)
+1. Login into AWS Console
 1. After login to AWS console, go to `IAM` service
-1. On the left hand side, click `Roles`, after that, click `Create role` button at the next screen
+1. On the left hand side, click `Roles`
+1. After that, click `Create role` button at the next screen
   1. At this setup wizard, follows through the steps below:
     1. Under __Select type of trusted entity__, select `AWS Service`
     1. Under __Choose a use case__, select `EC2`
@@ -42,18 +48,68 @@ This lab is going to covers the following:
 
 ### Create EC2
 1. Next, navigate to `EC2` service
+1. On the left hand side, look for `Instances` and click on it
+1. After that, click `Launch Instance` button
+  1. At this setup wizard, follows through the steps below:
+    1. Click on `Select` button next to `__Amazon Linux 2 AMI (HVM)`
+    1. Click on `Next: Configure Instance Details`
+  1. Step 3: Configure Instance Details
+    1. Auto-assign Public IP: `Use subnet setting (Enable)`
+    1. IAM role: `MyEC2CloudWatchAgentRole`
+    1. Leave everything as default
+    1. Scroll to the bottom, click `Next: Add Storage` button
+  1. Click `Next: Add Tags` button
+  1. Step 5: Add Tags
+    1. Click `Add Tag` button
+    1. Key: `Name`
+    1. Value: `myWebApp`
+    1. Click `Next: Configure Security Group`
+  1. Step 6: Configure Security Group
+    1. Security group name: `myWebAppSG`
+    1. Click `Add Rule` button, select __Type:__ `HTTP`
+    1. Click `Review and Launch` button
+  1. Step 7: Review Instance Launch
+    1. Take a final look on the configuration
+    1. Click `Launch` button
+  1. At the popup dialog, you will see two (2) dropdown input.
+    1. `Create a new key pair`
+    1. __Key pair name:__ `lab-cwl-agent`
+    1. Click `Download Key Pair`
+    1. Check on __I acknowledge that...__
+    1. Click `Launch Instances` button
+  1. Wait until your newly create instance has `running` __Instance State__.
+  1. Congrats! You have completed the __Prologue__
 
+## Chapter 1
+! make sure you completed the setup in [Prologue](#Prologue) before proceeding.
+
+By completing this chapter, we will achieve the following:
+
+![Image of Chapter 1 Architecture Diagram](https)
+1. You should be viewing __EC2__ listing page
+1. Click on the checkbox appears beside `myWebApp`
+1. Click on `Connect` button on top of EC2 listing
+1. Follow the steps to SSH into `myWebApp` __EC2__
 
 ## Chapter 2
+By completing this chapter, we will achieve the following:
+
+![Image of Chapter 2 Architecture Diagram](https)
 Alarms
 
 ## Chapter 3
-Quert Insight
+By completing this chapter, we will achieve the following:
+
+![Image of Chapter 3 Architecture Diagram](https)
+Query Insight
 
 ## Chapter 4
+By completing this chapter, we will achieve the following:
+
+![Image of Chapter 4 Architecture Diagram](https)
 Custom Metrics
 
 ## Chapter 5
 Best Practices :D
 
-## References
+## Appendix and References
