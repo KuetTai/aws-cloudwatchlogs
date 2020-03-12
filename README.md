@@ -40,15 +40,15 @@ By completing this chapter, we will achieve the following:
 1. After login to AWS console, go to `IAM` service
 1. On the left hand side, click `Roles`
 1. After that, click `Create role` button at the next screen
-  1. At this setup wizard, follows through the steps below:
-    1. Under __Select type of trusted entity__, select `AWS Service`
-    1. Under __Choose a use case__, select `EC2`
-    1. Leave everything else as default, scroll to the bottom, click `Next: Permissions` button
+1. At this setup wizard, follows through the steps below:
+      -  Under __Select type of trusted entity__, select `AWS Service`
+      -  Under __Choose a use case__, select `EC2`
+      -  Leave everything else as default, scroll to the bottom, click `Next: Permissions` button
   1. In the __Filter policies__ text box, type this `CloudWatchAgentServerPolicy`, tick on the checkbox appears
   1. Scroll to the bottom, click `Next: Tags` button
   1. Click on `Next: Review` button
-    1. __Role name*__: `MyEC2CloudWatchAgentRole`
-    1. Scroll to the bottom, click `Create role` button
+      -  __Role name*__: `MyEC2CloudWatchAgentRole`
+      -  Scroll to the bottom, click `Create role` button
   1. You should see the following success role creation message:
   - *The role __MyEC2CloudWatchAgentRole__ has been created*
 
