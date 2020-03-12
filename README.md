@@ -51,7 +51,8 @@ By completing this chapter, we will achieve the following:
       -  __Role name*__: `MyEC2CloudWatchAgentRole`
       -  Scroll to the bottom, click `Create role` button
 1. You should see the following success role creation message:
-  - *The role __MyEC2CloudWatchAgentRole__ has been created*
+
+*The role __MyEC2CloudWatchAgentRole__ has been created*
 
 ### Create EC2
 1. Next, navigate to `EC2` service
