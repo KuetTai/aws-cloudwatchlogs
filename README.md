@@ -101,6 +101,7 @@ By completing this chapter, we will achieve the following:
 1. Congrats! You have completed the __Prologue__
 
 ## Chapter 1
+Back to [Agenda](#Agenda)
 ! make sure you completed the setup in [Prologue](#Prologue) before proceeding.
 
 By completing this chapter, we will achieve the following:
@@ -221,24 +222,28 @@ There is an entry on AWS Blog that provides in-depth guidance on changing Apache
 [AWS Blog on Simplifying Apache Logs](https://aws.amazon.com/blogs/mt/simplifying-apache-server-logs-with-amazon-cloudwatch-logs-insights/)
 
 ## Chapter 2
+Back to [Agenda](#Agenda)
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 2 Architecture Diagram](https)
 Alarms
 
 ## Chapter 3
+Back to [Agenda](#Agenda)
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 3 Architecture Diagram](https)
 Query Insight
 
 ## Chapter 4
+Back to [Agenda](#Agenda)
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 4 Architecture Diagram](https)
 Custom Metrics
 
 ## Chapter 5
+Back to [Agenda](#Agenda)
 Best Practices :D
 
 ## Appendix and References
