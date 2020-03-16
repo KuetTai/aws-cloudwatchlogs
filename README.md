@@ -54,6 +54,16 @@ By completing this chapter, we will achieve the following:
 
 *The role __MyEC2CloudWatchAgentRole__ has been created*
 
+### Create CloudWatch Log Groups
+1. Next, navigate to `CloudWatch` service
+1. On the left hand side, look for `Log groups` and click on it
+1. Click on `Actions` -> `Create log group`
+  1. __Log Group Name__: /labs/crm/access_log
+  1. Click `Create log group` button
+1. After successfully create the first log group, click on `Actions` -> `Create log group` to create second log group
+  1. __Log Group Name__: /labs/crm/access_json
+  1. Click `Create log group` button
+
 ### Create EC2
 1. Next, navigate to `EC2` service
 1. On the left hand side, look for `Instances` and click on it
@@ -113,7 +123,11 @@ sudo yum install awslogs -y
 ## Important Folders/Files
 # - /etc/awslogs/awslogs.conf <-- Main configure files!
 # - /etc/awslogs/awscli.conf  <-- cli config, usually need to change it 1 time only
-# - /var/log/awslogs.log      <-- storing awslogs agent
+# - /var/log/awslogs.log      <-- storing awslogs agent, useful for troubleshooting
+
+## Let's looks into the contents of the logs file:
+cat /etc/awslogs/awslogs.conf
+cat /etc/awslogs/awscli.conf
 ```
 
 Prepare software: required for this lab to perform simulation:
@@ -131,6 +145,8 @@ sudo amazon-linux-extras install -y php7.2
 ##  - in JSON format
 sudo yum install httpd -y
 ```
+
+After that, let's start simulate so
 
 
 ## Chapter 2
