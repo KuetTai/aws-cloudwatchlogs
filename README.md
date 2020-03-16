@@ -63,6 +63,7 @@ By completing this chapter, we will achieve the following:
 1. After successfully create the first log group, click on `Actions` -> `Create log group` to create second log group
       -  __Log Group Name__: /labs/crm/access_json
       -  Click `Create log group` button
+1. (Optional) Besides the newly create Log Groups, click on `Never Expire`, set the __Retention:__ from `Never Expire` to `1 week (7 days)`. Click on `Ok` button. Repeat this for another log group.
 
 ### Create EC2
 1. Next, navigate to `EC2` service
@@ -144,10 +145,53 @@ sudo amazon-linux-extras install -y php7.2
 ##  - in delimiter format
 ##  - in JSON format
 sudo yum install httpd -y
+
+## Switch to root user
+sudo su -
+systemctl enable httpd
+systemctl start httpd
+
+## To Test if installation succeed
+curl http://169.254.169.254/latest/meta-data/public-hostname
+
+## Copy & Paste the output above to your web-browsers
+## If you managed to see a apache 'Test Page', congrats!
 ```
 
-After that, let's start simulate so
+Create few web pages to simulate different logs events:
+```
+cd /var/www/html
+cat <<EoF > redirect.php
+<?php header("Location: ads.php");
+EoF
 
+cat <<EoF > ads.php
+<?php echo "<pre>"; print_r(\$_SERVER);
+EoF
+
+cat <<EoF > index.php
+<?php echo "Welcome to index page!";
+EoF
+
+cat <<EoF > timeout.php
+<?php while(1){
+  sleep(5);
+}
+EoF
+
+## To test 'em out
+WEBURL=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
+curl $WEBURL/index.php
+curl $WEBURL/index.php
+curl $WEBURL/index.php
+curl $WEBURL/redirect.php
+curl $WEBURL/redirect.php
+curl $WEBURL/nopage.php
+curl $WEBURL/timeout.php  ##this will take 30seconds before hitting timeout.
+```
+
+There is an entry on AWS Blog that provides in-depth guidance on changing Apache Logs into JSON format, then publish it to cloudwatch log groups.
+[AWS Blog on Simplifying Apache Logs](https://aws.amazon.com/blogs/mt/simplifying-apache-server-logs-with-amazon-cloudwatch-logs-insights/)
 
 ## Chapter 2
 By completing this chapter, we will achieve the following:
