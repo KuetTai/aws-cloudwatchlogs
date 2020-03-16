@@ -58,11 +58,11 @@ By completing this chapter, we will achieve the following:
 1. Next, navigate to `CloudWatch` service
 1. On the left hand side, look for `Log groups` and click on it
 1. Click on `Actions` -> `Create log group`
-  1. __Log Group Name__: /labs/crm/access_log
-  1. Click `Create log group` button
+      -  __Log Group Name__: /labs/crm/access_log
+      -  Click `Create log group` button
 1. After successfully create the first log group, click on `Actions` -> `Create log group` to create second log group
-  1. __Log Group Name__: /labs/crm/access_json
-  1. Click `Create log group` button
+      -  __Log Group Name__: /labs/crm/access_json
+      -  Click `Create log group` button
 
 ### Create EC2
 1. Next, navigate to `EC2` service
