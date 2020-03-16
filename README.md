@@ -18,6 +18,7 @@ This lab is going to covers the following:
 - [Chapter 1: AWS CloudWatch Logs Agent](#Chapter-1)
   - Install CloudWatch Logs Agent on EC2 Amazon Linux 2
   - Look into CloudWatch Logs Agent config files - (a) awslogs.conf, (b) awscli.conf
+  - Prepare simulation logs
   - Publish 2 types of log files - (a) delimiter, (b) json
 - [Chapter 2: Creating CloudWatch Metrics & Alarms](#Chapter-2)
   - Create Filter/Metrics for both delimiter & JSON
@@ -104,7 +105,7 @@ By completing this chapter, we will achieve the following:
 
 By completing this chapter, we will achieve the following:
 
-![Image of Chapter 1 Architecture Diagram](https)
+![Image of Chapter 1 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap1.png?raw=true)
 ### SSH into your newly created EC2
 1. You should be viewing __EC2__ listing page
 1. Click on the checkbox appears beside `myWebApp`
@@ -178,7 +179,10 @@ cat <<EoF > timeout.php
   sleep(5);
 }
 EoF
+```
 
+Access the webpage to simulate entries into access_log
+```
 ## To test 'em out
 WEBURL=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
 curl $WEBURL/index.php
@@ -188,7 +192,30 @@ curl $WEBURL/redirect.php
 curl $WEBURL/redirect.php
 curl $WEBURL/nopage.php
 curl $WEBURL/timeout.php  ##this will take 30seconds before hitting timeout.
+
+## Test it in Web Browsers
+echo $WEBURL/index.php ## Copy paste the output to web-browsers
+echo $WEBURL/redirect.php ## Copy paste the output to web-browsers
+echo $WEBURL/nopage.php ## Copy paste the output to web-browsers
+echo $WEBURL/timeout.php ## Copy paste the output to web-browsers
+
+## Looks into the access_log
+tail -n100 /var/log/httpd/access_log
 ```
+
+Next, simulate __JSON__ log into a file (assuming it is your daily application logs)
+```
+cd /var/www/html
+wget https://raw.githubusercontent.com/kuettai/aws-cloudwatchlogs/master/src/genJsonLog.sh genJsonLog.sh
+chmod +x genJsonLog.sh
+./genJsonLog.sh app.log >> app.log
+
+## Let it run for few seconds
+## (Windows) CTRL + C
+## (Mac) control + C
+```
+
+Next up, publish custom metrics to
 
 There is an entry on AWS Blog that provides in-depth guidance on changing Apache Logs into JSON format, then publish it to cloudwatch log groups.
 [AWS Blog on Simplifying Apache Logs](https://aws.amazon.com/blogs/mt/simplifying-apache-server-logs-with-amazon-cloudwatch-logs-insights/)
