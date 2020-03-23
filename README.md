@@ -30,7 +30,8 @@ This lab is going to covers the following:
 ### Create IAM roles
 By completing this chapter, we will achieve the following:
 
-![Image of Prologue Diagram](https)
+![Image of Prologue Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-prologue.png?raw=true)
+
 1. Login into AWS Console
 1. After login to AWS console, go to `IAM` service
 1. On the left hand side, click `Roles`
@@ -287,7 +288,7 @@ Before diving into CloudWatch metrics & alarms, i need you to understand the fol
 ![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-metric-query-loggroup.png?raw=true)
 
 - CloudWatch metrics/alarms is working on collection of log streams
-- However, we can apply Log Query on each stream
+- However, we can apply Query Log on each stream
 
 ## Chapter 3
 Back to [Agenda](#Agenda)
