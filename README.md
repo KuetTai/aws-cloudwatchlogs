@@ -285,10 +285,114 @@ By completing this chapter, we will achieve the following:
 ![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap2.png?raw=true)
 
 Before diving into CloudWatch metrics & alarms, i need you to understand the following diagram
-![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-metric-query-loggroup.png?raw=true)
+![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-metric-query-loggroup-v2.png?raw=true)
 
-- CloudWatch metrics/alarms is working on collection of log streams
-- However, we can apply Query Log on each stream
+- You can have multiple Log Groups
+- 1 Log Group can have multiple log streams
+- 1 Log Streams have multiple log events
+- __CloudWatch metrics/alarms__ is working on collection of log streams under one log group.
+- However, we can apply __Query Log__ either on log group level, or each stream.
+
+#### Create Metrics on JSON Log Group
+1. From the console, navigate to `CloudWatch` service
+1. On the left hand side, click on Log groups
+1. Click on `/labs/crm/app_json_log`
+1. Navigate to the subtab `Metric filters`
+1. Click on `Create metric filter` button. You can find this button at the bottom of the page, or the top right corner
+1. Step 1 - Define Pattern
+    1. Instead of defining the pattern, skip the first input, under `Test pattern -> Select log data to test`, pick the data from log steam `i-[random_alpha_numberic]`
+    1. Visualize sample of the log pattern under `Log event messages`
+    1. Back to the top, `Filter pattern`, input this: `{$.status="FATAL"}`
+    1. [Optional] You can lookup more [Advance JSON CloudWatch Metric Filtering here](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html#w2aac15c13b9c28b6b6b6)
+    1. Click on `Test Pattern` button below
+    1. Expand the `Show test results`, validate your filtered output against your filter. You should only see all event messages that stated "FATAL" under __status__
+    1. Click on the `Next Button`
+1. Step 2 - Assign Metrics
+    1. __Filter name__: CRM-AppLogsFatalMetric
+    1. __Metric namespace__: CRM
+    1. __Metric name__: AppLogsFatalCount
+    1. __Metric value__: 1
+    1. __Default value - optional__: 0
+1. Step 3 - Review and create
+    1. Review the metrics
+    1. Click on `Create metric filter`
+1. After successfully create the metric filter, click on `AppLogsFatalCount`. (If you do not see it. Navigate to `Log Groups -> /labs/crm/app_json_log -> Metrics Filter`)
+1. Under Metrics
+    1. Click on `CRM -> Metrics without any dimension`
+    1. Check on the checkbox beside `AppLogsFatalCount`
+    1. Navigate to next tab, `Graphed metrics (1)`
+    1. Under `Statistic`, change the value `Average` to `Sum`
+    1. Under `Period`, change the value `5 Minutes` to `1 Minute`
+    1. At the top of the graph, changes from `3h` to `1h`
+
+#### Create SNS Topics, for Alarms notification
+1. Navigate to `Simple Notification Services` a.k.a `SNS`
+1. On the left hand side, click `Topics`
+1. Click `Create topic`
+1. Details
+    1. __Name__: `CRMAppFatalSNS`
+    1. Leave everything as defaults, click `Create Topic` button at the bottom of the page
+1. Under __Subscriptions__ tab
+    1. Click on `Create subscription` button
+1. Under __Details__
+    1. __Protocol__: Email
+    1. __EndPoint__: <Key In Your Email Address>
+    1. Click on `Create subscription` button on the bottom right
+1. Now, go to your mailbox (check your __spam__ if not in __inbox__) for __AWS Notification - Subscription Confirmation__
+1. Click `Confirm subscription` in the email body.
+1. A new tab will open, showing 'Subscription Confirmed!'
+
+#### Create Alarms using the metrics above
+1. Navigate to `CloudWatch` service
+1. On the left hand side, click on `Alarms`
+1. Click `Create Alarm` button on the top right
+1. Step 1 - Specify metric and conditions
+    1. Graph - Click `Select metric`
+    1. Select `CRM -> Metrics with no dimension -> AppLogsFatalCount`. Tick on the checkbox beside `AppLogsFatalCount`
+    1. Click `Select metrics` at the bottom right
+    1. Change __Statistic__ from `Average` to `Sum`
+    1. Change __Period__ from `5 minutes` to `1 minute`
+    1. __Threshold type__: `Static`
+    1. __Define alarm conditions__: `Greater`
+    1. __than...___: 1
+    1. Expand `Additional configuration`
+    1. __Datapoints of alarm__: `1` of out `1`
+    1. __Missing data treatment__: `Treat missing data as good (not breaching threshold)`
+    1. Click `Next`
+1. Step 2 - Configure actions
+    1. __Send a notification to...__: `CRMAppFatalSNS`
+    1. Click `Next`
+1. Step 3 - Add name and description
+    1. __Alarm name__: `CRMAppFatalAlarm`
+    1. Click `Next`
+1. Step 4 - Preview and create
+    1. Review your setting one last time
+    1. Click `Create alarm` at the bottom right of the page
+
+#### To simulate alarms
+```bash
+## ssh to your ec2 instance
+## Run the following only if you are not a root user
+sudo su -
+
+## Generate some application logs
+cd /var/www/html
+./genJsonLog.sh >> app.log
+
+## Leave it running
+```
+
+#### Wait for alarms
+1. Look into your mailbox, you should receive __CloudWatch Notification__
+1. After that, navigate to `CloudWatch` -> `Alarms`
+1. Click on `CRMAppFatalAlarm` and visualize the metrics
+1. Navigate back to your __EC2 instance terminal__ and stop the `genJsonLog.sh` job. (command + c, or ctrl + c)
+1. After a minute, refresh your browser. Scroll down to __History__, the latest entry should stated `Alarm updated from In alarm to OK`
+
+Notes:
+- You can repeat the step above on apache log.
+- Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
+- The above is to extract apacheLog with status code start with __4 and 5__, eg: 400, 404, 502
 
 ## Chapter 3
 Back to [Agenda](#Agenda)
@@ -312,6 +416,38 @@ Custom Metrics
 Back to [Agenda](#Agenda)
 
 ### Best Practices
-Best Practices :D
+#### Operational Excellence
+- Define important metrics in your application log
+- Output your application log in consistency manners (use separator, or JSON)
+- Plan your metrics, alarms and actions (Notification is good, but not the best ending. Notification still requires human intervention to read, understand the logs, and make plans against the alarm manually)
+- Create your metrics and alarms, build auto-recovery workflow if possible. (For example, if detected Diskspace full, go to EC2 install to clean up temp files automatically)
+
+#### Cost Optimisation
+- Set Log Groups Expiry, (e.g: 7 days)
+- CloudWatch Log storage cost $0.03 per GB. If logs required to be store for Long Term Archival, store it in S3 IA ($0.0125 per GB) or S3 Glacier ($0.004 per GB), or even S3 Glacier Deep Archive ($0.00099 per GB). The prices are based on us-east-1, N. Virginia region, as of 23-Mar-2020. Look at the table below for comparison.
+
+| Size | Cost In CloudWatch | Cost in S3 IA | Cost in S3 Glacier | Cost in S3 Glacier Deep Archive
+|---|---|---|---|---
+|1GB|0.03|0.0125|0.004|0.00099
+|50GB|1.5|0.625|0.2|0.0495
+|200GB|6|2.5|0.8|0.198
+|1,000GB|30|12.5|4|0.99
+|80,000GB|2400|1000|320|79.2
+
+#### Security
+- Use IAM Roles to grant EC2 permissions for CloudWatch Log Agent to publish log events to CloudWatch
+- Turn on encryption at CloudWatch Log Groups
+- CloudWatch Logs Agent is encrypting data in transit by default
+
+
+#### Reliability
+- Store /etc/awslogs/awslogs.conf either in github or S3 bucket.
+- Leverage on EC2 User Data or System Manager to install and apply configuration files to all servers
+
+#### Performance Efficiency
+N/A
 
 ## Appendix and References
+
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/S3ExportTasks.html
