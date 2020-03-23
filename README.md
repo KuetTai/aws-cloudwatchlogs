@@ -427,7 +427,7 @@ Back to [Agenda](#Agenda)
 - CloudWatch Log storage cost $0.03 per GB. If logs required to be store for Long Term Archival, store it in S3 IA ($0.0125 per GB) or S3 Glacier ($0.004 per GB), or even S3 Glacier Deep Archive ($0.00099 per GB). The prices are based on us-east-1, N. Virginia region, as of 23-Mar-2020. Look at the table below for comparison.
 
 | Size | CloudWatch | S3 IA |S3 Glacier | S3 Glacier Deep Archive
-|---|---|---|---|---
+|---|---:|---:|---:|---:
 |1GB|$0.03|$0.0125|$0.004|$0.00099
 |50GB|$1.5|$0.625|$0.2|$0.0495
 |200GB|$6|$2.5|$0.8|$0.198
