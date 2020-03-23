@@ -1,11 +1,5 @@
 # aws-cloudwatchlogs
 
-1. Item1
-   1. SubItemA
-   2. SubItemB
-      - wat
-        - hi
-
 Herewith the final architecture of the lab:
 ![Image of CloudWatchLogs Architecture](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-final.png?raw=true)
 
@@ -62,7 +56,7 @@ By completing this chapter, we will achieve the following:
       -  __Log Group Name__: /labs/crm/access_log
       -  Click `Create log group` button
 1. After successfully create the first log group, click on `Actions` -> `Create log group` to create second log group
-      -  __Log Group Name__: /labs/crm/access_json
+      -  __Log Group Name__: /labs/crm/app_json_log
       -  Click `Create log group` button
 1. (Optional) Besides the newly create Log Groups, click on `Never Expire`, set the __Retention:__ from `Never Expire` to `1 week (7 days)`. Click on `Ok` button. Repeat this for another log group.
 
@@ -102,8 +96,10 @@ By completing this chapter, we will achieve the following:
 
 ## Chapter 1
 Back to [Agenda](#Agenda)
-! make sure you completed the setup in [Prologue](#Prologue) before proceeding.
 
+!!!!! __Make sure__ you have completed the setup in [Prologue](#Prologue) before proceeding.
+
+### AWS CloudWatch Logs Agent
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 1 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap1.png?raw=true)
@@ -161,7 +157,7 @@ curl http://169.254.169.254/latest/meta-data/public-hostname
 ```
 
 Create few web pages to simulate different logs events:
-```
+```bash
 cd /var/www/html
 cat <<EoF > redirect.php
 <?php header("Location: ads.php");
@@ -183,7 +179,7 @@ EoF
 ```
 
 Access the webpage to simulate entries into access_log
-```
+```bash
 ## To test 'em out
 WEBURL=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
 curl $WEBURL/index.php
@@ -205,7 +201,7 @@ tail -n100 /var/log/httpd/access_log
 ```
 
 Next, simulate __JSON__ log into a file (assuming it is your daily application logs)
-```
+```bash
 cd /var/www/html
 wget https://raw.githubusercontent.com/kuettai/aws-cloudwatchlogs/master/src/genJsonLog.sh genJsonLog.sh
 chmod +x genJsonLog.sh
@@ -216,20 +212,87 @@ chmod +x genJsonLog.sh
 ## (Mac) control + C
 ```
 
-Next up, publish custom metrics to
+Next up, publish custom metrics to CloudWatch Log Groups
+```bash
+## Run the following comands as __root__ user
+## Edit awscli.conf, you can use any text editor
+vi /etc/awslogs/awscli.conf
 
+# Change region=us-east-1
+# to region=<Your_Region>
+
+# For example, in Singapore Region: region=ap-southeast-1
+# Visit this for all aws regions:
+## https://docs.aws.amazon.com/general/latest/gr/rande.partial.html
+
+#--------
+#Setup Log Files to be publish:
+vi /etc/awslogs/awslogs.conf
+
+## You may remove the entry of [/var/log/messages] entirely
+## Add the following lines to the bottom of the files to support both apache access_log and application json log
+[/var/log/httpd/access_log]
+datetime_format = %b %d %H:%M:%S
+file = /var/log/httpd/access_log
+buffer_duration = 5000
+log_stream_name = {instance_id}
+initial_position = start_of_file
+log_group_name = /labs/crm/access_log
+
+[/var/www/html/app.log]
+file = /var/www/html/app.log
+buffer_duration = 5000
+log_stream_name = {instance_id}
+initial_position = start_of_file
+log_group_name = /labs/crm/app_json_log
+
+## Save and close the file
+```
+
+Next up, start the services and monitor the CloudWatch Agents
+```bash
+systemctl restart awslogsd
+tail -f /var/log/awslogs.log
+
+## Look into the cloudwatch agents activities
+## If spotted any error, fix it; here are few common scenarios:
+##  - typo in cloudwatch log_group_name
+##  - datetime_format does not match with your logs
+##  - log file does not exists
+```
+### Verify ApplicationLogs on CloudWatch LogGroups
+1. From the console, navigate to `CloudWatch` service
+1. On the left hand side, click on Log groups
+1. Click on `/labs/crm/app_json_log`, after that click on the Log streams, should be starting with __i-[random_alpha_numberic]__
+1. Sample of application log, *in __JSON__ format*, on your EC2 instance is now available in CloudWatch Log Group.
+
+### Verify AccessLogs on CloudWatch LogGroups
+1. On the left hand side, click on Log groups
+1. This time, click on `/labs/crm/access_log`, after that click on the Log stream that start with __i-__[random_alpha_numberic].
+1. Sample of access log, *in __SPACE SEPARATOR__ format*, on your EC2 instance is now available in CloudWatch Log Group.
+
+Notes:
 There is an entry on AWS Blog that provides in-depth guidance on changing Apache Logs into JSON format, then publish it to cloudwatch log groups.
 [AWS Blog on Simplifying Apache Logs](https://aws.amazon.com/blogs/mt/simplifying-apache-server-logs-with-amazon-cloudwatch-logs-insights/)
 
 ## Chapter 2
 Back to [Agenda](#Agenda)
+
+### Creating CloudWatch Metrics & Alarms
 By completing this chapter, we will achieve the following:
 
-![Image of Chapter 2 Architecture Diagram](https)
-Alarms
+![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap2.png?raw=true)
+
+Before diving into CloudWatch metrics & alarms, i need you to understand the following diagram
+![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-metric-query-loggroup.png?raw=true)
+
+- CloudWatch metrics/alarms is working on collection of log streams
+- However, we can apply Log Query on each stream
 
 ## Chapter 3
 Back to [Agenda](#Agenda)
+
+### Using CloudWatch Logs Insight
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 3 Architecture Diagram](https)
@@ -237,6 +300,8 @@ Query Insight
 
 ## Chapter 4
 Back to [Agenda](#Agenda)
+
+### Publish CloudWatch Metrics to AWS
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 4 Architecture Diagram](https)
@@ -244,6 +309,8 @@ Custom Metrics
 
 ## Chapter 5
 Back to [Agenda](#Agenda)
+
+### Best Practices
 Best Practices :D
 
 ## Appendix and References
