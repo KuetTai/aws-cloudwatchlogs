@@ -103,7 +103,7 @@ Back to [Agenda](#Agenda)
 ### AWS CloudWatch Logs Agent
 By completing this chapter, we will achieve the following:
 
-![Image of Chapter 1 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap1.png?raw=true)
+![Image of Chapter 1 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap1-v2.png?raw=true)
 ### SSH into your newly created EC2
 1. You should be viewing __EC2__ listing page
 1. Click on the checkbox appears beside `myWebApp`
