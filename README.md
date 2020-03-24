@@ -420,13 +420,18 @@ Back to [Agenda](#Agenda)
     1. @ingestionTime is the time that CloudWatch Agent publishes the log event to CloudWatch
     1. @timestamp is the time that actual log happens
     1. You can perform filter in this detail view too
-1. After that, use the following filter to query:
+1. After that, use the following filter to query (copy the text, and replace the text in the CloudWatch Query textbox):
 ```sql
 fields @timestamp, code, msg
 | filter status = "FATAL" or status = "WARN"
 | sort @timestamp desc
 | limit 20
 ```
+1. Try to understand the query above
+    1. __fields__ - identify which columns to show
+    1. __filter__ - whereClause, applying filter logic to find out data you want
+    1. __sort__ - sort the result
+    1. __limit 20__ - shows only 20 results
 
 Query Insight
 
