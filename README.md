@@ -1,12 +1,12 @@
-# aws-cloudwatchlogs
+# <span style='color:#e47911'>aws-cloudwatchlogs</span>
 
 Herewith the final architecture of the lab:
 ![Image of CloudWatchLogs Architecture](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-final.png?raw=true)
 
-## Prologue: Understanding about the architecture :smile:
+## <span style='color:#e47911'>Prologue: Understanding about the architecture :smile:</span>
 
 
-## Agenda
+## <span style='color:#e47911'>Agenda</span>
 This lab is going to covers the following:
 - [Prologue: Preparing your environment](#Prologue)
 - [Chapter 1: AWS CloudWatch Logs Agent](#Chapter-1)
@@ -26,8 +26,8 @@ This lab is going to covers the following:
 - [Appendix and References](#References-and-References)
 
 
-## Prologue
-### Create IAM roles
+## <span style='color:#e47911'>Prologue</span>
+### <span style='color:#e47911'>Create IAM roles</span>
 By completing this chapter, we will achieve the following:
 
 ![Image of Prologue Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-prologue.png?raw=true)
@@ -50,7 +50,7 @@ By completing this chapter, we will achieve the following:
 
 *The role __MyEC2CloudWatchAgentRole__ has been created*
 
-### Create CloudWatch Log Groups
+### <span style='color:#e47911'>Create CloudWatch Log Groups</span>
 1. Next, navigate to `CloudWatch` service
 1. On the left hand side, look for `Log groups` and click on it
 1. Click on `Actions` -> `Create log group`
@@ -61,7 +61,7 @@ By completing this chapter, we will achieve the following:
       -  Click `Create log group` button
 1. (Optional) Besides the newly create Log Groups, click on `Never Expire`, set the __Retention:__ from `Never Expire` to `1 week (7 days)`. Click on `Ok` button. Repeat this for another log group.
 
-### Create EC2
+### <span style='color:#e47911'>Create EC2</span>
 1. Next, navigate to `EC2` service
 1. On the left hand side, look for `Instances` and click on it
 1. After that, click `Launch Instance` button
@@ -95,22 +95,22 @@ By completing this chapter, we will achieve the following:
 1. Wait until your newly create instance has `running` __Instance State__.
 1. Congrats! You have completed the __Prologue__
 
-## Chapter 1
+## <span style='color:#e47911'>Chapter 1</span>
 Back to [Agenda](#Agenda)
 
 !!!!! __Make sure__ you have completed the setup in [Prologue](#Prologue) before proceeding.
 
-### AWS CloudWatch Logs Agent
+### <span style='color:#e47911'>AWS CloudWatch Logs Agent</span>
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 1 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap1-v2.png?raw=true)
-### SSH into your newly created EC2
+### <span style='color:#e47911'>SSH into your newly created EC2</span>
 1. You should be viewing __EC2__ listing page
 1. Click on the checkbox appears beside `myWebApp`
 1. Click on `Connect` button on top of EC2 listing
 1. Follow the steps to SSH into `myWebApp` __EC2__
 
-### Setting up your environments
+### <span style='color:#e47911'>Setting up your environments</span>
 Prepare software: required for CloudWatch Logs agent to work:
 ```bash
 # Run the following commands as ec2-user
@@ -261,13 +261,13 @@ tail -f /var/log/awslogs.log
 ##  - datetime_format does not match with your logs
 ##  - log file does not exists
 ```
-### Verify ApplicationLogs on CloudWatch LogGroups
+### <span style='color:#e47911'>Verify ApplicationLogs on CloudWatch LogGroups</span>
 1. From the console, navigate to `CloudWatch` service
 1. On the left hand side, click on Log groups
 1. Click on `/labs/crm/app_json_log`, after that click on the Log streams, should be starting with __i-[random_alpha_numberic]__
 1. Sample of application log, *in __JSON__ format*, on your EC2 instance is now available in CloudWatch Log Group.
 
-### Verify AccessLogs on CloudWatch LogGroups
+### <span style='color:#e47911'>Verify AccessLogs on CloudWatch LogGroups</span>
 1. On the left hand side, click on Log groups
 1. This time, click on `/labs/crm/access_log`, after that click on the Log stream that start with __i-__[random_alpha_numberic].
 1. Sample of access log, *in __SPACE SEPARATOR__ format*, on your EC2 instance is now available in CloudWatch Log Group.
@@ -276,10 +276,10 @@ Notes:
 There is an entry on AWS Blog that provides in-depth guidance on changing Apache Logs into JSON format, then publish it to cloudwatch log groups.
 [AWS Blog on Simplifying Apache Logs](https://aws.amazon.com/blogs/mt/simplifying-apache-server-logs-with-amazon-cloudwatch-logs-insights/)
 
-## Chapter 2
+## <span style='color:#e47911'>Chapter 2</span>
 Back to [Agenda](#Agenda)
 
-### Creating CloudWatch Metrics & Alarms
+### <span style='color:#e47911'>Creating CloudWatch Metrics & Alarms</span>
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-chap2.png?raw=true)
@@ -293,7 +293,7 @@ Before diving into CloudWatch metrics & alarms, i need you to understand the fol
 - __CloudWatch metrics/alarms__ is working on collection of log streams under one log group.
 - However, we can apply __Query Log__ either on log group level, or each stream.
 
-#### Create Metrics on JSON Log Group
+#### <span style='color:#e47911'>Create Metrics on JSON Log Group</span>
 1. From the console, navigate to `CloudWatch` service
 1. On the left hand side, click on Log groups
 1. Click on `/labs/crm/app_json_log`
@@ -325,7 +325,7 @@ Before diving into CloudWatch metrics & alarms, i need you to understand the fol
     1. Under `Period`, change the value `5 Minutes` to `1 Minute`
     1. At the top of the graph, changes from `3h` to `1h`
 
-#### Create SNS Topics, for Alarms notification
+#### <span style='color:#e47911'>Create SNS Topics, for Alarms notification</span>
 1. Navigate to `Simple Notification Services` a.k.a `SNS`
 1. On the left hand side, click `Topics`
 1. Click `Create topic`
@@ -342,7 +342,7 @@ Before diving into CloudWatch metrics & alarms, i need you to understand the fol
 1. Click `Confirm subscription` in the email body.
 1. A new tab will open, showing 'Subscription Confirmed!'
 
-#### Create Alarms using the metrics above
+#### <span style='color:#e47911'>Create Alarms using the metrics above</span>
 1. Navigate to `CloudWatch` service
 1. On the left hand side, click on `Alarms`
 1. Click `Create Alarm` button on the top right
@@ -369,7 +369,7 @@ Before diving into CloudWatch metrics & alarms, i need you to understand the fol
     1. Review your setting one last time
     1. Click `Create alarm` at the bottom right of the page
 
-#### To simulate alarms
+#### <span style='color:#e47911'>To simulate alarms</span>
 ```bash
 ## ssh to your ec2 instance
 ## Run the following only if you are not a root user
@@ -382,7 +382,7 @@ cd /var/www/html
 ## Leave it running
 ```
 
-#### Wait for alarms
+#### <span style='color:#e47911'>Wait for alarms</span>
 1. Look into your mailbox, you should receive __CloudWatch Notification__
 1. After that, navigate to `CloudWatch` -> `Alarms`
 1. Click on `CRMAppFatalAlarm` and visualize the metrics
@@ -390,46 +390,50 @@ cd /var/www/html
 1. After a minute, refresh your browser. Scroll down to __History__, the latest entry should stated `Alarm updated from In alarm to OK`
 
 
+=================================
+#### <span style='color:#ff7979'>Challenge!</span>
 <details>
-    <summary>Challenges</summary>
-    
-    __Scenario: Dev team want to get near real-time notification when there are more than 5 status_code=404 happens__
+  <summary>Click here to expand</summary>
 
-    *Tips*
-    - You can repeat the step above on apache log.
-    - Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
-    - The above is to extract apacheLog with status code start with __4 or 5__, eg: 400, 404, 502
+  ### Scenario
+  Dev team want to get near real-time notification when there are more than 5 status_code=404 happens
+  * You can repeat the step above on apache log.
+  * Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
+  * The above is to extract apacheLog with status code start with __4 or 5__, eg: 400, 404, 502
 </details>
 
-## Chapter 3
+=================================
+
+
+## <span style='color:#e47911'>Chapter 3</span>
 Back to [Agenda](#Agenda)
 
-### Using CloudWatch Logs Insight
+### <span style='color:#e47911'>Using CloudWatch Logs Insight</span>
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 3 Architecture Diagram](https)
 Query Insight
 
-## Chapter 4
+## <span style='color:#e47911'>Chapter 4</span>
 Back to [Agenda](#Agenda)
 
-### Publish CloudWatch Metrics to AWS
+### <span style='color:#e47911'>Publish CloudWatch Metrics to AWS</span>
 By completing this chapter, we will achieve the following:
 
 ![Image of Chapter 4 Architecture Diagram](https)
 Custom Metrics
 
-## Chapter 5
+## <span style='color:#e47911'>Chapter 5</span>
 Back to [Agenda](#Agenda)
 
-### Best Practices
-#### Operational Excellence
+### <span style='color:#e47911'>Best Practices</span>
+#### <span style='color:#e47911'>Operational Excellence</span>
 - Define important metrics in your application log
 - Output your application log in consistency manners (use separator, or JSON)
 - Plan your metrics, alarms and actions (Notification is good, but not the best ending. Notification still requires human intervention to read, understand the logs, and make plans against the alarm manually)
 - Create your metrics and alarms, build auto-recovery workflow if possible. (For example, if detected Diskspace full, go to EC2 install to clean up temp files automatically)
 
-#### Cost Optimisation
+#### <span style='color:#e47911'>Cost Optimisation</span>
 - Set Log Groups Expiry, (e.g: 7 days)
 - CloudWatch Log storage cost $0.03 per GB. If logs required to be store for Long Term Archival, store it in S3 IA ($0.0125 per GB) or S3 Glacier ($0.004 per GB), or even S3 Glacier Deep Archive ($0.00099 per GB). The prices are based on us-east-1, N. Virginia region, as of 23-Mar-2020. Look at the table below for comparison.
 
@@ -441,20 +445,20 @@ Back to [Agenda](#Agenda)
 |1,000GB|$30|$12.5|$4|$0.99
 |80,000GB|$2400|$1000|$320|$79.2
 
-#### Security
+#### <span style='color:#e47911'>Security</span>
 - Use IAM Roles to grant EC2 permissions for CloudWatch Log Agent to publish log events to CloudWatch
 - Turn on encryption at CloudWatch Log Groups
 - CloudWatch Logs Agent is encrypting data in transit by default
 
 
-#### Reliability
+#### <span style='color:#e47911'>Reliability</span>
 - Store /etc/awslogs/awslogs.conf either in github or S3 bucket.
 - Leverage on EC2 User Data or System Manager to install and apply configuration files to all servers
 
-#### Performance Efficiency
+#### <span style='color:#e47911'>Performance Efficiency</span>
 N/A
 
-## Appendix and References
+## <span style='color:#e47911'>Appendix and References</span>
 
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/S3ExportTasks.html
