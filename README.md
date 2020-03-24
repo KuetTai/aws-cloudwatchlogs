@@ -420,20 +420,62 @@ Back to [Agenda](#Agenda)
     1. @ingestionTime is the time that CloudWatch Agent publishes the log event to CloudWatch
     1. @timestamp is the time that actual log happens
     1. You can perform filter in this detail view too
-1. After that, use the following filter to query (copy the text, and replace the text in the CloudWatch Query textbox):
+
+
 ```sql
 fields @timestamp, code, msg
 | filter status = "FATAL" or status = "WARN"
 | sort @timestamp desc
 | limit 20
 ```
+1. Next, use the filter above to query (copy the text, and replace the text in the CloudWatch Query textbox):
 1. Try to understand the query above
-    1. __fields__ - identify which columns to show
-    1. __filter__ - whereClause, applying filter logic to find out data you want
-    1. __sort__ - sort the result
-    1. __limit 20__ - shows only 20 results
+    - __fields__ - identify which columns to show
+    - __filter__ - whereClause, applying filter logic to find out data you want
+    - __sort__ - sort the result
+    - __limit 20__ - shows only 20 results
+1. Execute the query by click on `Run query` button
 
-Query Insight
+```sql
+fields @timestamp, code, msg
+| stats count(status) as cntStatus by status
+| filter status = "FATAL" or status = "WARN"
+```
+1. Next, use the filter above to query (copy the text, and replace the text in the CloudWatch Query textbox):
+1. Try to understand the query above
+    - __stats__ - perform aggregation function, such as `count`, `sum`, `average`, `max`, `min`
+    - __as__ - Give a name to the aggreate columns
+    - __by__ - Defining the logic of group by for your aggregation function
+1. Execute the query by click on `Run query` button
+1. Click on `Visualization` tab, at the left hand side, change `Line` to `Bar`. You can have better presentation of data here.
+
+
+#### Perform query on Apache Log
+This scenario is used to showcase log files store in delimiter format, or fix regular expression pattern format.
+1. Click on `Clear` button at the top of textarea
+1. Click on `Select log group(s)` dropdown
+1. Click `/labs/crm/access_log`, make sure the checkbox is __ticked__, click on any whitespace on the screen to hide the dropdown
+
+Run the queries below and examine the output
+```sql
+parse @message '* - - [*] "* * *" * * "*" "*"' client, dateTimeString, httpVerb, url, protocol, statusCode, bytes, referer, userAgent
+| fields @message
+| sort @timestamp desc
+| limit 50
+```
+
+```sql
+parse @message '* - - [*] "* * *" * * "*" "*"' client, dateTimeString, httpVerb, url, protocol, statusCode, bytes, referer, userAgent
+| filter statusCode in [404, 504]
+```
+
+```sql
+parse @message '* - - [*] "* * *" * * "*" "*"' client, dateTimeString, httpVerb, url, protocol, statusCode, bytes, referer, userAgent
+| filter statusCode in [404, 504]
+| stats count(*) as statCnt by statusCode, httpVerb
+```
+
+To further customize your query, refers to (AWS Documention on CloudWatch Log Insights Query Syntax)[https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html]
 
 ## Chapter 4
 Back to [Agenda](#Agenda)
