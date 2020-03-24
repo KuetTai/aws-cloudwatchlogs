@@ -389,21 +389,16 @@ cd /var/www/html
 1. Navigate back to your __EC2 instance terminal__ and stop the `genJsonLog.sh` job. (command + c, or ctrl + c)
 1. After a minute, refresh your browser. Scroll down to __History__, the latest entry should stated `Alarm updated from In alarm to OK`
 
-Notes:
-- You can repeat the step above on apache log.
-- Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
-- The above is to extract apacheLog with status code start with __4 and 5__, eg: 400, 404, 502
 
-
-<detail>
+<details>
     <summary>Challenges</summary>
     __Scenario: Dev team want to get near real-time notification when there are more than 5 status_code=404 happens__
 
     *Tips*
     - You can repeat the step above on apache log.
     - Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
-    - The above is to extract apacheLog with status code start with __4 and 5__, eg: 400, 404, 502
-</detail>
+    - The above is to extract apacheLog with status code start with __4 or 5__, eg: 400, 404, 502
+</details>
 
 ## Chapter 3
 Back to [Agenda](#Agenda)
