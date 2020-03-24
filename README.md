@@ -590,7 +590,7 @@ Back to [Agenda](#Agenda)
 - Leverage on EC2 User Data or System Manager to install and apply configuration files to all servers
 
 #### Performance Efficiency
-N/A
+N/A 
 
 ## Next Steps
 1. [Todo] Store CloudWatch configurations on S3 Bucket, and automate installation in new instance
