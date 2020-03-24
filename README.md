@@ -458,6 +458,12 @@ This scenario is used to showcase log files store in delimiter format, or fix re
 
 Run the queries below and examine the output
 ```sql
+fields @timestamp, @message
+| sort @timestamp desc
+| limit 50
+```
+
+```sql
 parse @message '* - - [*] "* * *" * * "*" "*"' client, dateTimeString, httpVerb, url, protocol, statusCode, bytes, referer, userAgent
 | fields @message
 | sort @timestamp desc
@@ -475,7 +481,7 @@ parse @message '* - - [*] "* * *" * * "*" "*"' client, dateTimeString, httpVerb,
 | stats count(*) as statCnt by statusCode, httpVerb
 ```
 
-To further customize your query, refers to (AWS Documention on CloudWatch Log Insights Query Syntax)[https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html]
+To further customize your query, refers to [AWS Documention on CloudWatch Log Insights Query Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html)
 
 ## Chapter 4
 Back to [Agenda](#Agenda)
