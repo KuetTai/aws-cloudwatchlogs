@@ -392,6 +392,7 @@ cd /var/www/html
 
 <details>
     <summary>Challenges</summary>
+    
     __Scenario: Dev team want to get near real-time notification when there are more than 5 status_code=404 happens__
 
     *Tips*
