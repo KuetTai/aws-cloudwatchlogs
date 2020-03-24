@@ -3,8 +3,7 @@
 Herewith the final architecture of the lab:
 ![Image of CloudWatchLogs Architecture](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-final.png?raw=true)
 
-## Prologue: Understanding about the architecture :smile:
-
+## Introduction: Understanding about the architecture :smile:
 
 ## Agenda
 This lab is going to covers the following:
@@ -82,6 +81,7 @@ By completing this chapter, we will achieve the following:
 1. Step 6: Configure Security Group
       -  Security group name: `myWebAppSG`
       -  Click `Add Rule` button, select __Type:__ `HTTP`
+      -  Click `Add Rule` button, select __Type:__ `SSH` (Skip this step if SSH is already available in the rule)
       -  Click `Review and Launch` button
 1. Step 7: Review Instance Launch
       -  Take a final look on the configuration
@@ -90,7 +90,6 @@ By completing this chapter, we will achieve the following:
       -  `Create a new key pair`
       -  __Key pair name:__ `lab-cwl-agent`
       -  Click `Download Key Pair`
-      -  Check on __I acknowledge that...__
       -  Click `Launch Instances` button
 1. Wait until your newly create instance has `running` __Instance State__.
 1. Congrats! You have completed the __Prologue__
@@ -126,6 +125,7 @@ sudo yum install awslogs -y
 # - /var/log/awslogs.log      <-- storing awslogs agent, useful for troubleshooting
 
 ## Let's looks into the contents of the logs file:
+sudo su -       # switch to root user
 cat /etc/awslogs/awslogs.conf
 cat /etc/awslogs/awscli.conf
 ```
@@ -137,16 +137,13 @@ Prepare software: required for this lab to perform simulation:
 ##  - page not found error
 ##  - page redirection
 ##  - healthy page
-sudo amazon-linux-extras install -y php7.2
+amazon-linux-extras install -y php7.2
 
 ## Install Apache Web Server
 ## This is important for log simulation
 ##  - in delimiter format
 ##  - in JSON format
-sudo yum install httpd -y
-
-## Switch to root user
-sudo su -
+yum install httpd -y
 systemctl enable httpd
 systemctl start httpd
 
@@ -192,10 +189,10 @@ curl $WEBURL/nopage.php
 curl $WEBURL/timeout.php  ##this will take 30seconds before hitting timeout.
 
 ## Test it in Web Browsers
-echo $WEBURL/index.php ## Copy paste the output to web-browsers
-echo $WEBURL/redirect.php ## Copy paste the output to web-browsers
-echo $WEBURL/nopage.php ## Copy paste the output to web-browsers
-echo $WEBURL/timeout.php ## Copy paste the output to web-browsers
+echo $WEBURL/index.php ## Copy paste the output to web-browser
+echo $WEBURL/redirect.php ## Copy paste the output to web-browser
+echo $WEBURL/nopage.php ## Copy paste the output to web-browser
+echo $WEBURL/timeout.php ## Copy paste the output to web-browser
 
 ## Looks into the access_log
 tail -n100 /var/log/httpd/access_log
@@ -409,9 +406,28 @@ cd /var/www/html
 Back to [Agenda](#Agenda)
 
 ### Using CloudWatch Logs Insight
-By completing this chapter, we will achieve the following:
+1. Navigate to `CloudWatch` service
+1. On the left hand side, click on `Log Groups`
 
-![Image of Chapter 3 Architecture Diagram](https)
+#### Perform query on JSON log
+1. Click `/labs/crm/app_json_log`
+1. At the top right corner, click on `Query log group` button
+1. Without changing anything, click on `Run query` button
+1. Look at the result shows below: (a) histogram, (b) log events
+1. (a) You can hover over the `bar` on the histogram to look into the __count__ hits per minutes
+1. (b) You can expand the log events by click on the (+) magnifying glass beside each log event.
+    1. There are 2 timing available in the log events details: @ingestionTime, @timestamp.
+    1. @ingestionTime is the time that CloudWatch Agent publishes the log event to CloudWatch
+    1. @timestamp is the time that actual log happens
+    1. You can perform filter in this detail view too
+1. After that, use the following filter to query:
+```sql
+fields @timestamp, code, msg
+| filter status = "FATAL" or status = "WARN"
+| sort @timestamp desc
+| limit 20
+```
+
 Query Insight
 
 ## Chapter 4
@@ -434,6 +450,7 @@ Back to [Agenda](#Agenda)
 - Create your metrics and alarms, build auto-recovery workflow if possible. (For example, if detected Diskspace full, go to EC2 install to clean up temp files automatically)
 
 #### Cost Optimisation
+- Enable `Stored bytes` column at `CloudWatch -> Log Groups` table view by clicking the 'gear' icon at the top right of the view.
 - Set Log Groups Expiry, (e.g: 7 days)
 - CloudWatch Log storage cost $0.03 per GB. If logs required to be store for Long Term Archival, store it in S3 IA ($0.0125 per GB) or S3 Glacier ($0.004 per GB), or even S3 Glacier Deep Archive ($0.00099 per GB). The prices are based on us-east-1, N. Virginia region, as of 23-Mar-2020. Look at the table below for comparison.
 
