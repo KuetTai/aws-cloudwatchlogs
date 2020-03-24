@@ -551,8 +551,10 @@ done
 1. Check on the checkbox
 1. Switch to next tab, `Graphed metrics`
 1. Change period value from `5 minutes` to `5 seconds`
+1. Visualize the graph
 
-Congratulations! You completed the labs.
+
+__Congratulations!__ You completed the labs.
 
 ## Chapter 5
 Back to [Agenda](#Agenda)
@@ -589,6 +591,10 @@ Back to [Agenda](#Agenda)
 
 #### Performance Efficiency
 N/A
+
+## Next Steps
+1. [Todo] Store CloudWatch configurations on S3 Bucket, and automate installation in new instance
+1. [Todo] Stream daily logs to S3
 
 ## Appendix and References
 
