@@ -488,9 +488,71 @@ Back to [Agenda](#Agenda)
 
 ### Publish CloudWatch Metrics to AWS
 By completing this chapter, we will achieve the following:
+1. Publish Memory & Disk Metrics to CloudWatch
+1. Publish Custom Metrics to CloudWatch
 
-![Image of Chapter 4 Architecture Diagram](https)
-Custom Metrics
+#### Publish Memory & Disk Metrics to CloudWatch
+In this lab, we will cover installation guide on AWS EC2 with Amazon Linux 2. Installation guide for other OS can be found in [AWS Offical Documentation here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html)
+
+```bash
+## Login to your EC2 (If you got logout)
+## Make sure you run the following commands as root,
+## Step 1. Install dependencies
+yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
+
+## Step 2. Download monitoring scripts
+cd /var/www/html
+curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
+unzip CloudWatchMonitoringScripts-1.2.2.zip
+rm -f CloudWatchMonitoringScripts-1.2.2.zip
+cd aws-scripts-mon
+
+
+## Run the following command to verify output:
+## With --verify parameter, it will not publish to cloudwatch
+./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail --swap-util --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --verify --verbose
+
+## Remove --verify parameter
+./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail --swap-util --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --verbose
+
+## When executing this script in schedule, add this parameter: --from-cron
+## Add this to scheduler to run every minutes
+* * * * * /var/www/html/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail --swap-util --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --from-cron
+
+## If you want the scheduler to run every 5 minutes, use this:
+*/5 * * * * /var/www/html/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail --swap-util --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --from-cron
+
+
+## To view custom metrics using the script:
+./mon-get-instance-stats.pl --recent-hours=12
+
+```
+After published out data to CloudWatch, you can setup your dashboard using these new metrics
+1. Navigate to `CloudWatch`
+1. On the left hand side, click `Metrics`
+1. Under `Custom Namespaces`, click `System/Linux`
+
+#### Publish Custom Metrics to CloudWatch
+```bash
+export serverId=$(curl http://169.254.169.254/latest/meta-data/instance-id)
+export serverType=$(curl http://169.254.169.254/latest/meta-data/instance-type)
+while true
+do
+  r=$(((RANDOM%100)))
+  aws cloudwatch put-metric-data --metric-name ActiveUsersCount --namespace CRMAppNS --unit Count --value $r --dimensions InstanceId=$serverId,InstanceType=$serverType
+  sleep 5
+done
+```
+1. Let the script above to run for about 1-2 minutes
+1. Navigate to `CloudWatch`
+1. On the left hand side, click `Metrics`
+1. Under `Custom Namespaces`, click `CRMAppNS`
+1. Click `InstanceId,InstanceType`
+1. Check on the checkbox
+1. Switch to next tab, `Graphed metrics`
+1. Change period value from `5 minutes` to `5 seconds`
+
+Congratulations! You completed the labs.
 
 ## Chapter 5
 Back to [Agenda](#Agenda)
