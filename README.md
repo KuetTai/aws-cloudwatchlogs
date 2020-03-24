@@ -394,6 +394,17 @@ Notes:
 - Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
 - The above is to extract apacheLog with status code start with __4 and 5__, eg: 400, 404, 502
 
+
+<detail>
+    <summary>Challenges</summary>
+    __Scenario: Dev team want to get near real-time notification when there are more than 5 status_code=404 happens__
+
+    *Tips*
+    - You can repeat the step above on apache log.
+    - Example of __Filter pattern__: `[ip, id, user, timestamp, request, status_code=4* || status_code=5*, size]`
+    - The above is to extract apacheLog with status code start with __4 and 5__, eg: 400, 404, 502
+</detail>
+
 ## Chapter 3
 Back to [Agenda](#Agenda)
 
