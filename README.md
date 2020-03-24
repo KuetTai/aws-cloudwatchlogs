@@ -3,7 +3,7 @@
 Herewith the complete architecture of the labs if you complete this lab, and the other 2 advanced labs:
 ![Image of CloudWatchLogs Architecture](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-final.png?raw=true)
 
-In this lab, we focus on the grey line, which covers:
+In this lab, we focus on the `grey line`, which covers:
 - CloudWatch Log groups
 - IAM roles
 - CloudWatch Agents
