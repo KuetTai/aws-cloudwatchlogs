@@ -1,7 +1,19 @@
 # aws-cloudwatchlogs
 
-Herewith the final architecture of the lab:
+Herewith the complete architecture of the labs if you complete this lab, and the other 2 advanced labs:
 ![Image of CloudWatchLogs Architecture](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-final.png?raw=true)
+
+In this lab, we focus on the grey line, which covers:
+- CloudWatch Log groups
+- IAM roles
+- CloudWatch Agents
+- EC2 installations
+- CloudWatch Metrics & Filters
+- Amazon Simple Notification Services (SNS)
+- CloudWatch Alarms
+- CloudWatch Log Insights
+- Publish Memory & Diskusage to CloudWatch
+- Publish Custom Metrics to CloudWatch
 
 ## Introduction: Understanding about the architecture :smile:
 
@@ -590,7 +602,7 @@ Back to [Agenda](#Agenda)
 - Leverage on EC2 User Data or System Manager to install and apply configuration files to all servers
 
 #### Performance Efficiency
-N/A 
+N/A
 
 ## Next Steps
 1. [Todo] Store CloudWatch configurations on S3 Bucket, and automate installation in new instance
