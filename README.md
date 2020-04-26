@@ -82,6 +82,11 @@ By completing this chapter, we will achieve the following:
 1. Step 3: Configure Instance Details
       - Auto-assign Public IP: `Use subnet setting (Enable)`
       - IAM role: `MyEC2CloudWatchAgentRole`
+      - User data:
+```bash
+#!/bin/bash
+yum update -y
+```
       - Leave everything as default
       - Scroll to the bottom, click `Next: Add Storage` button
 1. Click `Next: Add Tags` button
