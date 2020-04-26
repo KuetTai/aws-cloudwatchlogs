@@ -147,6 +147,9 @@ sudo yum install awslogs -y
 sudo su -       # switch to root user
 cat /etc/awslogs/awslogs.conf
 cat /etc/awslogs/awscli.conf
+
+# To further understand agent-configuration parameters:
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html
 ```
 
 Prepare software: required for this lab to perform simulation:
