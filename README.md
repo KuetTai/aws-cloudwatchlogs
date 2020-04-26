@@ -307,7 +307,7 @@ Before diving into CloudWatch metrics & alarms, i need you to understand the fol
 ![Image of Chapter 2 Architecture Diagram](https://github.com/kuettai/aws-cloudwatchlogs/blob/master/img/cw-metric-query-loggroup-v2.png?raw=true)
 
 - You can have multiple Log Groups
-- 1 Log Group can have multiple log streams
+- 1 Log Group can have 1 or multiple log stream(s)
 - 1 Log Streams have multiple log events
 - __CloudWatch metrics/alarms__ is working on collection of log streams under one log group.
 - However, we can apply __Query Log__ either on log group level, or each stream.
@@ -548,6 +548,13 @@ cd aws-scripts-mon
 ## To view custom metrics using the script:
 ./mon-get-instance-stats.pl --recent-hours=12
 
+# You might run into error due to no permission issues:
+# Go to IAM -> Roles -> [Select created role]
+# Attach inline policy with the following permissions,
+#   Service: CloudWatch
+#   Actions: List, Read
+#   Resources: All resources
+# Save. It takes about 5-10seconds for new permission to kick in.
 ```
 After published out data to CloudWatch, you can setup your dashboard using these new metrics
 1. Navigate to `CloudWatch`
@@ -603,7 +610,12 @@ Back to [Agenda](#Agenda)
 
 #### Security
 - Use IAM Roles to grant EC2 permissions for CloudWatch Log Agent to publish log events to CloudWatch
-- Turn on encryption at CloudWatch Log Groups
+- Turn on encryption at CloudWatch Log Groups (As of 26-Apr-2020, it can only be enable via CLI)
+  - refers to: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html
+  - KMS create keys
+  - Ensure EC2Role has permission to access the key
+  - Ensure IAM Role has permission to perform actions on "Cloudwatch Logs -> Associate Key"
+  - Ensure KMS key policy allows "Principal -> Service -> logs.[region].amazonaws.com"
 - CloudWatch Logs Agent is encrypting data in transit by default
 
 
