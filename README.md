@@ -89,7 +89,7 @@ yum update -y
 
 ```
 
-      - Leave everything as default
+1. Leave everything as default
       - Scroll to the bottom, click `Next: Add Storage` button
 1. Click `Next: Add Tags` button
 1. Step 5: Add Tags
