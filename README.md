@@ -86,7 +86,9 @@ By completing this chapter, we will achieve the following:
 ```bash
 #!/bin/bash
 yum update -y
+
 ```
+
       - Leave everything as default
       - Scroll to the bottom, click `Next: Add Storage` button
 1. Click `Next: Add Tags` button
