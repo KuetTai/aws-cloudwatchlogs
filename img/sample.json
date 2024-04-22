@@ -1,8 +1,18 @@
-source,target,value
-Resources (100), Computes (60),60
-Resources (100), Databases (40),40
-Computes (60), EC2 (40),40
-Computes (60), Lambda (15),15
-Computes (60), ECS/EKS (5), 5
-EC2 (40), Windows (30), 30
-EC2 (40), Linux (10), 10
+{
+  "node":[
+    {"name": "0. Resources (100)"},
+    {"name": "1. Computes (60)"},
+    {"name": "2. Databases(40)"},
+    {"name": "3. EC2 (40)"},
+    {"name": "4. ECS/EKS (5)"},
+    {"name": "5. Lambda (15)"}
+  ], 
+  "links":[
+    {"source":0, "target":1, "value": 60}, 
+    {"source":0, "target":2, "value": 40}, 
+    {"source":0, "target":1, "value": 60},
+    {"source":1, "target":3, "value": 40}, 
+    {"source":1, "target":4, "value": 5}, 
+    {"source":1, "target":5, "value": 15}
+  ]
+}
