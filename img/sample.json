@@ -1,0 +1,8 @@
+source,target,value
+Resources (100), Computes (60),60
+Resources (100), Databases (40),40
+Computes (60), EC2 (40),40
+Computes (60), Lambda (15),15
+Computes (60), ECS/EKS (5), 5
+EC2 (40), Windows (30), 30
+EC2 (40), Linux (10), 10
